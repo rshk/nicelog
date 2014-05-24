@@ -1,0 +1,13 @@
+*.db
+*.egg
+*.egg-info
+*.pyc
+*~
+.cache
+.coverage
+.tox
+/.venv*
+/build
+/dist
+__pycache__
+old-stuff
