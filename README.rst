@@ -34,6 +34,15 @@ Example usage
     logger.critical('Critical message')
 
 
+Example output
+==============
+
+Here it is, in all its glory:
+
+.. image:: https://pbs.twimg.com/media/BmZOrHvCEAAcT6h.png:large
+    :alt: Screenshot
+
+
 Powerline font support
 ======================
 
