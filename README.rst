@@ -39,7 +39,7 @@ Example output
 
 Here it is, in all its glory:
 
-.. image:: https://raw.githubusercontent.com/rshk/nicelog/master/.screenshots/nicelog.png
+.. image:: https://raw.githubusercontent.com/rshk/nicelog/master/.screenshots/nicelog2.png
     :alt: Screenshot
 
 
