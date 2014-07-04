@@ -141,10 +141,10 @@ class ColorLineFormatter(logging.Formatter):
     def _format_level_and_name(self, record):
         color = self.level_colors.get(record.levelno, 'white')
         levelname = self._colorize(
-            ' {0:<6} '.format(record.levelname),
+            ' {0:^8} '.format(record.levelname),
             fg=color, attrs=['reverse'])
-        if POWERLINE_STYLE:
-            levelname += self._colorize(u'\ue0b0', fg=color, bg='white')
+        # if POWERLINE_STYLE:
+        #     levelname += self._colorize(u'\ue0b0', fg=color, bg='white')
 
         loggername = self._colorize(
             ' {0} '.format(record.name), fg='red', bg='white')
