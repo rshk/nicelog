@@ -51,7 +51,7 @@ class Xterm16Colorer(BaseColorer):
 
 class Xterm256Colorer(Xterm16Colorer):
     _colors = dict(
-        grey='237',
+        grey='240',
         red='196',
         green='70',
         yellow='202',
@@ -59,7 +59,7 @@ class Xterm256Colorer(Xterm16Colorer):
         magenta='207',
         cyan='37',
         white='252',
-        hi_grey='240',
+        hi_grey='245',
         hi_red='203',
         hi_green='190',
         hi_yellow='214',
@@ -187,6 +187,6 @@ class ColorLineFormatter(logging.Formatter):
         exc_info = self._get_exc_info(record)
         if exc_info is not None:
             parts.append(
-                "\n" + self._colorize(exc_info, fg='grey', attrs=['bold']))
+                "\n" + self._colorize(exc_info, fg='hi_grey'))
 
         return ' '.join(parts)
