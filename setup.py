@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.1.4'
+version = '0.1.5'
 
 setup(
     name='nicelog',
@@ -12,7 +12,7 @@ setup(
     author_email='samuele@samuelesanti.com',
     description='Nice colorful formatters for Python logging.',
     long_description=open('README.rst', 'r').read(),
-    install_requires=['termcolor'],
+    install_requires=[],
     # tests_require=tests_require,
     test_suite='tests',
     classifiers=[
