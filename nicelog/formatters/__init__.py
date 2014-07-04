@@ -136,7 +136,7 @@ class ColorLineFormatter(logging.Formatter):
     def _format_date(self, record):
         fmtdate = datetime.datetime.fromtimestamp(
             record.created).strftime("%F %T")
-        return self._colorize(fmtdate, attrs=['bold'])
+        return self._colorize(fmtdate, fg='cyan')
 
     def _format_level_and_name(self, record):
         color = self.level_colors.get(record.levelno, 'white')
@@ -153,6 +153,20 @@ class ColorLineFormatter(logging.Formatter):
 
         return levelname + loggername
 
+    def _format_level(self, record):
+        color = self.level_colors.get(record.levelno, 'white')
+        levelname = self._colorize(
+            ' {0:^8} '.format(record.levelname),
+            fg=color, attrs=['reverse'])
+        return levelname
+
+    def _format_name(self, record):
+        loggername = self._colorize(
+            ' {0} '.format(record.name), fg='red', bg='white')
+        if POWERLINE_STYLE:
+            loggername += self._colorize(u'\ue0b0', 'white')
+        return loggername
+
     def _format_filename(self, record):
         return ':'.join((
             self._colorize(record.filename, fg='green'),
@@ -165,15 +179,26 @@ class ColorLineFormatter(logging.Formatter):
             self._colorize(str(record.funcName), fg='hi_yellow'),
         ))
 
+    def _format_message_inline(self, record):
+        color = self.level_colors.get(record.levelno, 'white')
+        return self._colorize(record.getMessage().rstrip(), color)
+
+    def _format_message_block(self, record):
+        return u"\n" + u"\n".join(
+            u"    {0}".format(l)
+            for l in record.getMessage().splitlines())
+
     def format(self, record):
         """Format logs nicely"""
 
         parts = []
 
+        parts.append(self._format_level(record))
+
         if self._show_date:
             parts.append(self._format_date(record))
 
-        parts.append(self._format_level_and_name(record))
+        parts.append(self._format_name(record))
 
         if self._show_filename:
             parts.append(self._format_filename(record))
@@ -181,8 +206,10 @@ class ColorLineFormatter(logging.Formatter):
         if self._show_function:
             parts.append(self._format_function(record))
 
-        color = self.level_colors.get(record.levelno, 'white')
-        parts.append(self._colorize(record.getMessage().rstrip(), color))
+        # color = self.level_colors.get(record.levelno, 'white')
+        # parts.append(self._colorize(record.getMessage().rstrip(), color))
+
+        parts.append(self._format_message_block(record).rstrip())
 
         exc_info = self._get_exc_info(record)
         if exc_info is not None:
