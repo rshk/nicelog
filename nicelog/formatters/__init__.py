@@ -1,5 +1,6 @@
-import os
+import datetime
 import logging
+import os
 import sys
 
 
@@ -89,11 +90,15 @@ class ColorLineFormatter(logging.Formatter):
         logging.CRITICAL: 'red',
     }
 
-    def __init__(self, show_date=False, colorer=None, *a, **kw):
+    def __init__(self, show_date=False, show_function=False,
+                 show_filename=False, colorer=None, *a, **kw):
         super(ColorLineFormatter, self).__init__(*a, **kw)
         if colorer is None:
             colorer = self._get_colorer()
         self._colorer = colorer
+        self._show_date = show_date
+        self._show_function = show_function
+        self._show_filename = show_filename
 
     def _get_colorer(self):
         if os.environ.get('ANSI_COLORS_DISABLED') is not None:
@@ -129,7 +134,9 @@ class ColorLineFormatter(logging.Formatter):
         return self._colorer.colorize(text, fg=fg, bg=bg, attrs=attrs)
 
     def _format_date(self, record):
-        pass
+        fmtdate = datetime.datetime.fromtimestamp(
+            record.created).strftime("%F %T")
+        return self._colorize(fmtdate, attrs=['bold'])
 
     def _format_level_and_name(self, record):
         color = self.level_colors.get(record.levelno, 'white')
@@ -146,20 +153,40 @@ class ColorLineFormatter(logging.Formatter):
 
         return levelname + loggername
 
+    def _format_filename(self, record):
+        return ':'.join((
+            self._colorize(record.filename, fg='green'),
+            self._colorize(str(record.lineno), fg='hi_green'),
+        ))
+
+    def _format_function(self, record):
+        return '.'.join((
+            self._colorize(record.module, fg='yellow'),
+            self._colorize(str(record.funcName), fg='hi_yellow'),
+        ))
+
     def format(self, record):
         """Format logs nicely"""
 
+        parts = []
+
+        if self._show_date:
+            parts.append(self._format_date(record))
+
+        parts.append(self._format_level_and_name(record))
+
+        if self._show_filename:
+            parts.append(self._format_filename(record))
+
+        if self._show_function:
+            parts.append(self._format_function(record))
+
         color = self.level_colors.get(record.levelno, 'white')
-        parts = [
-            self._format_level_and_name(record),
-            self._colorize(record.getMessage(), color),
-        ]
-        s = ' '.join(parts)
+        parts.append(self._colorize(record.getMessage().rstrip(), color))
 
         exc_info = self._get_exc_info(record)
         if exc_info is not None:
-            if s[-1:] != "\n":
-                s = s + "\n"
-            s += self._colorize(exc_info, fg='grey', attrs=['bold'])
+            parts.append(
+                "\n" + self._colorize(exc_info, fg='grey', attrs=['bold']))
 
-        return s
+        return ' '.join(parts)
