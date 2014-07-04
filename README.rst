@@ -60,7 +60,7 @@ Here it is, in all its glory:
 
 If you want to see what it looks like in 256color mode, with all the fields enabled:
 
-.. image:: https://raw.githubusercontent.com/rshk/nicelog/master/.screenshots/nicelog3.png?v=1
+.. image:: https://raw.githubusercontent.com/rshk/nicelog/master/.screenshots/nicelog3.png?v=2
     :alt: Screenshot
 
 
