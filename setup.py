@@ -6,10 +6,12 @@ version = '0.1.5'
 here = os.path.dirname(__file__)
 
 with open(os.path.join(here, 'README.rst')) as fp:
-    longdesc = fp.read()
+    longdesc = [fp.read()]
 
 with open(os.path.join(here, 'CHANGELOG.rst')) as fp:
-    longdesc += fp.read()
+    longdesc.append(fp.read())
+
+longdesc = "\n\n".join(longdesc)
 
 setup(
     name='nicelog',
