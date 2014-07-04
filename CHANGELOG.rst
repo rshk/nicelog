@@ -5,6 +5,7 @@ v0.1.6
 ------
 
 - Added support for showing more information:
+
   - record date
   - file name / line number
   - module / function
