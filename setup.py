@@ -1,6 +1,15 @@
 from setuptools import setup, find_packages
+import os
 
 version = '0.1.5'
+
+here = os.path.dirname(__file__)
+
+with open(os.path.join(here, 'README.rst')) as fp:
+    longdesc = fp.read()
+
+with open(os.path.join(here, 'CHANGELOG.rst')) as fp:
+    longdesc += fp.read()
 
 setup(
     name='nicelog',
@@ -11,7 +20,7 @@ setup(
     author='Samuele Santi',
     author_email='samuele@samuelesanti.com',
     description='Nice colorful formatters for Python logging.',
-    long_description=open('README.rst', 'r').read(),
+    long_description=longdesc,
     install_requires=[],
     # tests_require=tests_require,
     test_suite='tests',
