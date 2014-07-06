@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v0.1.7
+------
+
+- Added support for ``message_inline`` argument. If set to ``False``,
+  messages will be displayed on their own line (useful when enabling a lot of
+  information)
+
 v0.1.6
 ------
 
