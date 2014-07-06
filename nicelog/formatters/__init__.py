@@ -91,7 +91,8 @@ class ColorLineFormatter(logging.Formatter):
     }
 
     def __init__(self, show_date=False, show_function=False,
-                 show_filename=False, colorer=None, *a, **kw):
+                 show_filename=False, message_inline=True,
+                 colorer=None, *a, **kw):
         super(ColorLineFormatter, self).__init__(*a, **kw)
         if colorer is None:
             colorer = self._get_colorer()
@@ -99,6 +100,7 @@ class ColorLineFormatter(logging.Formatter):
         self._show_date = show_date
         self._show_function = show_function
         self._show_filename = show_filename
+        self._message_inline = message_inline
 
     def _get_colorer(self):
         if os.environ.get('ANSI_COLORS_DISABLED') is not None:
@@ -206,10 +208,10 @@ class ColorLineFormatter(logging.Formatter):
         if self._show_function:
             parts.append(self._format_function(record))
 
-        # color = self.level_colors.get(record.levelno, 'white')
-        # parts.append(self._colorize(record.getMessage().rstrip(), color))
-
-        parts.append(self._format_message_block(record).rstrip())
+        if self._message_inline:
+            parts.append(self._format_message_inline(record).rstrip())
+        else:
+            parts.append(self._format_message_block(record).rstrip())
 
         exc_info = self._get_exc_info(record)
         if exc_info is not None:

@@ -8,7 +8,7 @@ logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler(sys.stderr)
 handler.setFormatter(
     ColorLineFormatter(show_date=True, show_function=True,
-                       show_filename=True))
+                       show_filename=True, message_inline=False))
 handler.setLevel(logging.DEBUG)
 
 logger.addHandler(handler)
