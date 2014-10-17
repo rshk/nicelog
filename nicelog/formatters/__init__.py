@@ -106,7 +106,7 @@ class ColorLineFormatter(logging.Formatter):
         if os.environ.get('ANSI_COLORS_DISABLED') is not None:
             return None
         term = os.environ.get('TERM')
-        if '256color' in term:
+        if term and '256color' in term:
             return Xterm256Colorer()
         return Xterm16Colorer()
 
