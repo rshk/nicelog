@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1.7'
+version = '0.1.8'
 
 here = os.path.dirname(__file__)
 

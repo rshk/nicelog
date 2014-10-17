@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.1.8
+------
+
+- Prevent failure in case the ``TERM`` environment variable is not set (PR #1)
+
 v0.1.7
 ------
 
