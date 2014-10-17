@@ -7,13 +7,25 @@ Nice Log
 .. image:: https://coveralls.io/repos/rshk/nicelog/badge.png
     :target: https://coveralls.io/r/rshk/nicelog
 
-.. image:: https://pypip.in/v/nicelog/badge.png
-    :target: https://crate.io/packages/nicelog/
+.. image:: https://pypip.in/version/nicelog/badge.svg?text=version
+    :target: https://github.com/rshk/nicelog.git
     :alt: Latest PyPI version
 
-.. image:: https://pypip.in/d/nicelog/badge.png
-    :target: https://crate.io/packages/nicelog/
+.. image:: https://pypip.in/download/nicelog/badge.svg?period=month
+    :target: https://github.com/rshk/nicelog.git
     :alt: Number of PyPI downloads
+
+.. image:: https://pypip.in/py_versions/nicelog/badge.svg
+    :target: https://pypi.python.org/pypi/nicelog/
+    :alt: Supported Python versions
+
+.. image:: https://pypip.in/status/nicelog/badge.svg
+    :target: https://pypi.python.org/pypi/nicelog/
+    :alt: Development Status
+
+.. image:: https://pypip.in/license/nicelog/badge.svg
+    :target: https://pypi.python.org/pypi/nicelog/
+    :alt: License
 
 Provide formatters to nicely display colorful logging output on the console.
 
