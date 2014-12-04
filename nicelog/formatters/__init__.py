@@ -137,7 +137,7 @@ class ColorLineFormatter(logging.Formatter):
 
     def _format_date(self, record):
         fmtdate = datetime.datetime.fromtimestamp(
-            record.created).strftime("%F %T")
+            record.created).strftime("%Y-%m-%d %H:%M:%S")
         return self._colorize(fmtdate, fg='cyan')
 
     def _format_level_and_name(self, record):
