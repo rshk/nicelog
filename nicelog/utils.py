@@ -30,7 +30,7 @@ class FrameInfo(object):
         self.locs = self._format_locals(locs)
         self.context = self._get_context()
 
-    def _get_context(self, size=5):
+    def _get_context(self, size=3):
         """Return some "context" lines from a file"""
         _start = max(0, self.lineno - size - 1)
         _end = self.lineno + size
@@ -86,17 +86,21 @@ class TracebackInfo(object):
         """Format traceback for printing"""
 
         output = io.StringIO()
-        output.write(u'Traceback (most recent call last):\n\n')
-        output.write(u'\n'.join(
+        output.write('------------------ '
+                     'Traceback (most recent call last) '
+                     '-----------------\n\n')
+        output.write('\n'.join(
             self._format_frame(f)
             for f in self.frames))
         return output.getvalue()
 
-    def format_color(self):
+    def format_color(self):  # todo: accept a colorizer + style
         """Format traceback for printing on 256-color terminal"""
 
         output = io.StringIO()
-        output.write(u'Traceback (most recent call last):\n\n')
+        output.write('\033[0m------------------ '
+                     'Traceback (most recent call last) '
+                     '-----------------\n\n')
         output.write(u'\n'.join(
             self._format_frame_color(f)
             for f in self.frames))
@@ -136,10 +140,10 @@ class TracebackInfo(object):
 
         output = io.StringIO()
         output.write(
-            u'  \033[1m'
-            u'File \033[38;5;184m"{0}"\033[39m, '
-            u'line \033[38;5;70m{1}\033[39m, '
-            u'in \033[38;5;39m{2}\033[0m\n\n'
+            u'\033[0m'
+            u'\033[1mFile\033[0m \033[38;5;70m"{0}"\033[39m, '
+            u'\033[1mline\033[0m \033[38;5;190m{1}\033[39m, '
+            u'\033[1min\033[0m \033[38;5;214m{2}\033[0m\n\n'
             .format(frame.filename, frame.lineno, frame.name))
 
         if frame.context:

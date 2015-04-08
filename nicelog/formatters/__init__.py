@@ -72,16 +72,9 @@ class Colorful(logging.Formatter):
         # todo: beautiful exceptions if required to
         exc_info = self._format_traceback(record)
         if exc_info is not None:
-            parts.append("\n" + self._render('exception', exc_info))
+            parts.append("\n\n" + self._indent(exc_info))
 
         return ' '.join(parts)
-
-    def _format_traceback(self, record):
-        if record.exc_info:
-            if self._beautiful_tracebacks:
-                return self._format_beautiful_traceback(record)
-            return self._format_plain_traceback(record)
-        return None
 
     def _render(self, style_name, text):
         if self.colorer is None:
@@ -124,11 +117,13 @@ class Colorful(logging.Formatter):
     def _format_message_block(self, record):
         return "\n" + self._indent(record.getMessage())
 
-    def _indent(self, text, tab="    ", level=1):
-        _indent = tab * level
-        lines = text.splitlines()
-        indented = ["{}{}".format(_indent, line) for line in lines]
-        return "\n".join(indented)
+    def _format_traceback(self, record):
+        if record.exc_info:
+            if self._beautiful_tracebacks:
+                return self._format_beautiful_traceback(record)
+            text = self._format_plain_traceback(record)
+            return self._render('exception', text)
+        return None
 
     def _format_plain_traceback(self, record):
         if record.exc_info:
@@ -157,6 +152,12 @@ class Colorful(logging.Formatter):
         # todo: use colorer to render traceback!
         # todo: use suitable pygments formatter for the colorer
         return TracebackInfo.from_tb(record.exc_info[2]).format_color()
+
+    def _indent(self, text, tab="    ", level=1):
+        _indent = tab * level
+        lines = text.splitlines()
+        indented = ["{}{}".format(_indent, line) for line in lines]
+        return "\n".join(indented)
 
 
 ColorLineFormatter = Colorful
