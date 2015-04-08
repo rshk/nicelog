@@ -1,10 +1,20 @@
 Changelog
 =========
 
+
+v0.1.9
+------
+
+- Replaced ``strftime(3)`` conversion specifiers ``%F`` and ``%T``
+  aren't available on all platforms: replaced with long versions
+  ``%Y-%m-%d`` and ``%H:%M:%S``.
+
+
 v0.1.8
 ------
 
 - Prevent failure in case the ``TERM`` environment variable is not set (PR #1)
+
 
 v0.1.7
 ------
@@ -12,6 +22,7 @@ v0.1.7
 - Added support for ``message_inline`` argument. If set to ``False``,
   messages will be displayed on their own line (useful when enabling a lot of
   information)
+
 
 v0.1.6
 ------
@@ -21,6 +32,7 @@ v0.1.6
   - record date
   - file name / line number
   - module / function
+
 
 v0.1.5
 ------
