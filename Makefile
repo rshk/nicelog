@@ -33,13 +33,16 @@ install:
 install_dev:
 	python setup.py develop
 
-check:
+test:
 	py.test -vvv --pep8 --cov=$(BASE_PACKAGE) --cov-report=term-missing ./tests
 
-test: check
+check: test
+
+manual_test:
+	PYTHONPATH=scripts python -m manual_test
 
 setup_tests:
-	pip install pytest pytest-pep8 pytest-cov
+	pip install -U -r ./tests/requirements.txt
 
 docs:
 	$(MAKE) -C docs html
