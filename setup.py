@@ -23,7 +23,7 @@ setup(
     author_email='samuele@samuelesanti.com',
     description='Nice colorful formatters for Python logging.',
     long_description=longdesc,
-    install_requires=[],
+    install_requires=['pygments'],
     # tests_require=tests_require,
     test_suite='tests',
     classifiers=[

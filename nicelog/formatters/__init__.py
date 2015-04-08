@@ -19,6 +19,7 @@ class Colorful(logging.Formatter):
 
     def __init__(self, show_date=True, show_function=True,
                  show_filename=True, message_inline=False,
+                 beautiful_tracebacks=True,
                  colorer=DEFAULT, style=DEFAULT, *a, **kw):
 
         """Log formatter for beautiful colored output
@@ -28,6 +29,7 @@ class Colorful(logging.Formatter):
             show_function: whether to include function name
             show_filename: whether to include file name
             message_inline: whether to print messages inline
+            beautiful_tracebacks: whether to nicely format tracebacks
             colorer (BaseColorer): used to create color output
             style (BaseStyle): color style to use
         """
@@ -43,6 +45,7 @@ class Colorful(logging.Formatter):
         self._show_function = show_function
         self._show_filename = show_filename
         self._message_inline = message_inline
+        self._beautiful_tracebacks = beautiful_tracebacks
 
     def format(self, record):
 
@@ -67,14 +70,16 @@ class Colorful(logging.Formatter):
             parts.append(self._format_message_block(record).rstrip())
 
         # todo: beautiful exceptions if required to
-        exc_info = self._get_exc_info(record)
+        exc_info = self._format_traceback(record)
         if exc_info is not None:
             parts.append("\n" + self._render('exception', exc_info))
 
         return ' '.join(parts)
 
-    def _get_exc_info(self, record):
+    def _format_traceback(self, record):
         if record.exc_info:
+            if self._beautiful_tracebacks:
+                return self._format_beautiful_traceback(record)
             return self._format_plain_traceback(record)
         return None
 
@@ -145,6 +150,13 @@ class Colorful(logging.Formatter):
                     sys.getfilesystemencoding(), 'replace')
         return None
 
+    def _format_beautiful_traceback(self, record):
+        if not record.exc_info:
+            return
+        from nicelog.utils import TracebackInfo
+        # todo: use colorer to render traceback!
+        # todo: use suitable pygments formatter for the colorer
+        return TracebackInfo.from_tb(record.exc_info[2]).format_color()
 
 
 ColorLineFormatter = Colorful
