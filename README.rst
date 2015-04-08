@@ -4,9 +4,6 @@ Nice Log
 .. image:: https://travis-ci.org/rshk/nicelog.svg?branch=master
     :target: https://travis-ci.org/rshk/nicelog
 
-.. image:: https://coveralls.io/repos/rshk/nicelog/badge.png
-    :target: https://coveralls.io/r/rshk/nicelog
-
 .. image:: https://pypip.in/version/nicelog/badge.svg?text=version
     :target: https://github.com/rshk/nicelog.git
     :alt: Latest PyPI version
