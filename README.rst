@@ -34,6 +34,14 @@ logger name, but future plans are to add more formatters and allow
 better ways to customize them.
 
 
+Installation
+============
+
+::
+
+   pip install nicelog
+
+
 Example usage
 =============
 
