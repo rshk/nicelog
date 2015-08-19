@@ -40,8 +40,14 @@ class FrameInfo(object):
         return _lines
 
     def _format_locals(self, locs):
-        return dict(((k, trim_string(repr(v), maxlen=1024))
-                     for k, v in locs.iteritems()))
+        formatted = {}
+        for k, v in locs.iteritems():
+            try:
+                fmtval = trim_string(repr(v), maxlen=1024)
+            except Exception as e:
+                fmtval = '<Error creating repr(): {}>'.format(repr(e))
+            formatted[k] = fmtval
+        return formatted
 
 
 class TracebackInfo(object):

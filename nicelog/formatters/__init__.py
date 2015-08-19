@@ -151,7 +151,9 @@ class Colorful(logging.Formatter):
         from nicelog.utils import TracebackInfo
         # todo: use colorer to render traceback!
         # todo: use suitable pygments formatter for the colorer
-        return TracebackInfo.from_tb(record.exc_info[2]).format_color()
+        trace = TracebackInfo.from_tb(record.exc_info[2]).format_color()
+        trace += "\n" + repr(record.exc_info[1])
+        return trace
 
     def _indent(self, text, tab="    ", level=1):
         _indent = tab * level
