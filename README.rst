@@ -1,8 +1,13 @@
 Nice Log
 ########
 
-.. image:: https://travis-ci.org/rshk/nicelog.svg?branch=master
-    :target: https://travis-ci.org/rshk/nicelog
+.. image:: https://circleci.com/gh/rshk/nicelog.svg?&style=shield
+   :target: https://circleci.com/gh/rshk/nicelog
+   :alt: CircleCI build status
+..
+
+   .. image:: https://travis-ci.org/rshk/nicelog.svg?branch=master
+       :target: https://travis-ci.org/rshk/nicelog
 
 .. image:: https://pypip.in/version/nicelog/badge.svg?text=version
     :target: https://github.com/rshk/nicelog.git
@@ -99,7 +104,7 @@ I usually put something like this in my (local) settings:
 .. code-block:: python
 
     LOGGING['formatters']['standard'] = {
-        '()': 'nicelog.formatters.ColorLineFormatter',
+        '()': 'nicelog.formatters.Colorful',
         'show_date': True,
         'show_function': True,
         'show_filename': True,
