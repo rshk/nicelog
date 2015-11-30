@@ -6,6 +6,7 @@ import datetime
 import logging
 import os
 import sys
+import six
 
 from nicelog.colorers.terminal import get_term_colorer
 from nicelog.styles.base import BaseStyle as DefaultStyle
@@ -15,7 +16,7 @@ POWERLINE_STYLE = bool(os.environ.get('HAS_POWERLINE_FONT', False))
 DEFAULT = object()
 
 
-class Colorful(logging.Formatter):
+class Colorful(logging.Formatter, object):
 
     def __init__(self, show_date=True, show_function=True,
                  show_filename=True, message_inline=False,
@@ -34,7 +35,7 @@ class Colorful(logging.Formatter):
             style (BaseStyle): color style to use
         """
 
-        super(ColorLineFormatter, self).__init__(*a, **kw)
+        super(Colorful, self).__init__(*a, **kw)
         if style is DEFAULT:
             style = DefaultStyle()
         self.style = style
@@ -91,7 +92,7 @@ class Colorful(logging.Formatter):
 
     def _format_level(self, record):
         return self._render(
-            ('level_name_{}'.format(record.levelname), 'level_name_DEFAULT'),
+            ('level_name_{0}'.format(record.levelname), 'level_name_DEFAULT'),
             ' {0:^8} '.format(record.levelname))
 
     def _format_name(self, record):
@@ -111,7 +112,7 @@ class Colorful(logging.Formatter):
 
     def _format_message_inline(self, record):
         return self._render(
-            ('message_{}'.format(record.levelname), 'message_DEFAULT'),
+            ('message_{0}'.format(record.levelname), 'message_DEFAULT'),
             record.getMessage().rstrip())
 
     def _format_message_block(self, record):
@@ -133,7 +134,7 @@ class Colorful(logging.Formatter):
                 record.exc_text = self.formatException(record.exc_info)
         if record.exc_text:
             try:
-                return unicode(record.exc_text)
+                return six.u(record.exc_text)
             except UnicodeError:
                 # Sometimes filenames have non-ASCII chars, which can lead
                 # to errors when s is Unicode and record.exc_text is str
@@ -158,7 +159,7 @@ class Colorful(logging.Formatter):
     def _indent(self, text, tab="    ", level=1):
         _indent = tab * level
         lines = text.splitlines()
-        indented = ["{}{}".format(_indent, line) for line in lines]
+        indented = ["{0}{1}".format(_indent, line) for line in lines]
         return "\n".join(indented)
 
 

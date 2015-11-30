@@ -2,6 +2,8 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import six
+
 
 class BaseColorer(object):
     def __init__(self, style):
@@ -12,7 +14,7 @@ class BaseColorer(object):
         return self.colorize(text, **item_style)
 
     def _get_style(self, style_name):
-        if isinstance(style_name, basestring):
+        if isinstance(style_name, six.string_types):
             style_name = [style_name]
         for name in style_name:
             try:

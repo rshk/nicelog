@@ -6,6 +6,9 @@ import io
 import linecache
 import sys
 
+import six
+from six.moves import zip, range
+
 
 def trim_string(s, maxlen=1024, ellps='...'):
     """
@@ -36,16 +39,16 @@ class FrameInfo(object):
         _end = self.lineno + size
         _lines = linecache.getlines(self.filename)[_start:_end]
         _lines = [x.rstrip() for x in _lines]
-        _lines = zip(xrange(_start + 1, _end + 1), _lines)
+        _lines = list(zip(range(_start + 1, _end + 1), _lines))
         return _lines
 
     def _format_locals(self, locs):
         formatted = {}
-        for k, v in locs.iteritems():
+        for k, v in six.iteritems(locs):
             try:
                 fmtval = trim_string(repr(v), maxlen=1024)
             except Exception as e:
-                fmtval = '<Error creating repr(): {}>'.format(repr(e))
+                fmtval = '<Error creating repr(): {0}>'.format(repr(e))
             formatted[k] = fmtval
         return formatted
 
@@ -130,7 +133,7 @@ class TracebackInfo(object):
         if len(frame.locs):
             output.write(u'\n      Local variables:\n')
 
-            for key, val in sorted(frame.locs.iteritems()):
+            for key, val in sorted(six.iteritems(frame.locs)):
                 output.write(u'        {0} = {1}\n'.format(key, val))
 
         return output.getvalue()
@@ -142,7 +145,9 @@ class TracebackInfo(object):
 
         _code_lexer = get_lexer_by_name('python')
         _code_formatter = Terminal256Formatter(style='monokai')
-        _highlight = lambda code: highlight(code, _code_lexer, _code_formatter)
+
+        def _highlight(code):
+            return highlight(code, _code_lexer, _code_formatter)
 
         output = io.StringIO()
         output.write(
@@ -168,7 +173,7 @@ class TracebackInfo(object):
         if len(frame.locs):
             output.write(u'\n    \033[1mLocal variables:\033[0m\n')
 
-            for key, val in sorted(frame.locs.iteritems()):
+            for key, val in sorted(six.iteritems(frame.locs)):
                 code_line = _highlight(u'{0} = {1}'.format(key, val)).rstrip()
                 output.write(u'      {0}\n'.format(code_line))
 
@@ -198,11 +203,6 @@ class TracebackInfo(object):
             tb = tb.tb_next
             n = n+1
         return frames
-
-    # @classmethod
-    # def _dump_locals(cls, locs):
-    #     return dict(((k, trim_string(repr(v), maxlen=1024))
-    #                  for k, v in locs.iteritems()))
 
     def __str__(self):
         return self.format().encode('utf-8')

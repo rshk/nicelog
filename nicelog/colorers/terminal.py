@@ -45,7 +45,8 @@ class Xterm16Colorer(BaseColorer):
         _open_parts = list(_attrs)
         _open_parts.append(self._get_fg_color(fg))
         _open_parts.append(self._get_bg_color(bg))
-        _open_parts = filter(None, _open_parts)
+        _open_parts = [x for x in _open_parts if x]
+
         if len(_open_parts) == 0:
             _open_parts.append(self._reset)
         t_open = '\033[{0}m'.format(';'.join(str(x) for x in _open_parts))
