@@ -1,4 +1,4 @@
-pytest==2.7.0
-pytest-cache==1.0
-pytest-cov==1.8.1
-pytest-pep8==1.0.6
+pytest
+pytest-cov
+freezegun
+flake8
