@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v0.2
+----
+
+- More decoupling between "colorer" and "style"
+- Support for pretty tracebacks (colorful + code context + locals)
+- Added some tests
+- Python3 support via six
+
 
 v0.1.9
 ------
