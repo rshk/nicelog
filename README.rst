@@ -4,30 +4,7 @@ Nice Log
 .. image:: https://circleci.com/gh/rshk/nicelog.svg?&style=shield
    :target: https://circleci.com/gh/rshk/nicelog
    :alt: CircleCI build status
-..
 
-   .. image:: https://travis-ci.org/rshk/nicelog.svg?branch=master
-       :target: https://travis-ci.org/rshk/nicelog
-
-.. image:: https://pypip.in/version/nicelog/badge.svg?text=version
-    :target: https://github.com/rshk/nicelog.git
-    :alt: Latest PyPI version
-
-.. image:: https://pypip.in/download/nicelog/badge.svg?period=month
-    :target: https://github.com/rshk/nicelog.git
-    :alt: Number of PyPI downloads
-
-.. image:: https://pypip.in/py_versions/nicelog/badge.svg
-    :target: https://pypi.python.org/pypi/nicelog/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/nicelog/badge.svg
-    :target: https://pypi.python.org/pypi/nicelog/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/nicelog/badge.svg
-    :target: https://pypi.python.org/pypi/nicelog/
-    :alt: License
 
 Provide formatters to nicely display colorful logging output on the console.
 
