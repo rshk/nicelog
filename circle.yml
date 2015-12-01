@@ -14,5 +14,5 @@ test:
     - tox -e py34
     - tox -e py35
   post:
-    - flake8 aliasfile
+    - flake8 nicelog
     - flake8 tests
