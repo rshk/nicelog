@@ -24,8 +24,27 @@ Installation
    pip install nicelog
 
 
-Example usage
-=============
+Quick usage
+===========
+
+Since version ``0.3``, nicelog comes with a helper function to quickly
+set up logging for basic needs.
+
+.. code-block:: python
+
+    from nicelog import setup_logging
+
+    setup_logging()
+
+Or, if you want to include debug messages too:
+
+.. code-block:: python
+
+    setup_logging(debug=True)
+
+
+Advanced usage
+==============
 
 .. code-block:: python
 
