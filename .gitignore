@@ -11,3 +11,4 @@
 /dist
 __pycache__
 old-stuff
+.pytest_cache
